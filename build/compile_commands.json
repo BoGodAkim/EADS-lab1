@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/Users/bogodakim/UniverProject/lab1/build",
+  "command": "/usr/bin/clang++   -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.0.sdk -o CMakeFiles/EADSLab1.dir/main.cpp.o -c /Users/bogodakim/UniverProject/lab1/main.cpp",
+  "file": "/Users/bogodakim/UniverProject/lab1/main.cpp"
+}
+]
