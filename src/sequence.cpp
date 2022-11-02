@@ -168,7 +168,16 @@ int Sequence<Key, Info>::occurrences(const Key &key) const
 template <typename Key, typename Info>
 bool Sequence<Key, Info>::has(const Key &key) const
 {
-    return occurrences(key) > 0;
+    Node *current = head;
+    while (current != nullptr)
+    {
+        if (current->key == key)
+        {
+            return true;
+        }
+        current = current->next;
+    }
+    return false;
 }
 
 template <typename Key, typename Info>
