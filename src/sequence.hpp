@@ -21,6 +21,7 @@ private:
     Node *tail;
     int length;
     pair<Node *, Node *> find(const Key &key, int occurrence = 0) const;
+    void checkTemplateOnOperators() const;
 
 public:
 
@@ -31,6 +32,7 @@ public:
     void insert(const Key &key, const Info &value, const Key &after, int occurrence = 0);
     Info &operator[](const Key &key) const;
     Info &operator()(const Key &key, int occurrence = 0) const;
+    bool operator==(const Sequence<Key, Info> &other) const;
     void remove(const Key &key, int occurrence = 0);
     int occurrences(const Key &key) const;
     bool has(const Key &key) const;

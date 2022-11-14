@@ -1,8 +1,48 @@
 #include "sequence.hpp"
 
+namespace CHECK
+{
+    struct No
+    {
+    };
+    template <typename T, typename Arg>
+    No operator==(const T &, const Arg &);
+
+    template <typename T, typename Arg = T>
+    struct EqualExists
+    {
+        enum
+        {
+            value = !std::is_same<decltype(*(T *)(0) == *(Arg *)(0)), No>::value
+        };
+    };
+}
+
+template <typename Key, typename Info>
+Sequence<Key, Info>::Node::Node(Key key, Info value, Node *next)
+{
+    this->key = key;
+    this->value = value;
+    this->next = next;
+}
+
+template <typename Key, typename Info>
+void Sequence<Key, Info>::checkTemplateOnOperators() const
+{
+    if (!CHECK::EqualExists<Key, Key>::value)
+    {
+        throw "Key does not have operator==";
+    }
+    if (!CHECK::EqualExists<Info, Info>::value)
+    {
+        throw "Info does not have operator==";
+    }
+}
+
 template <typename Key, typename Info>
 Sequence<Key, Info>::Sequence()
 {
+    checkTemplateOnOperators();
     head = nullptr;
     tail = nullptr;
     length = 0;
@@ -11,7 +51,7 @@ Sequence<Key, Info>::Sequence()
 template <typename Key, typename Info>
 Sequence<Key, Info>::Sequence(const Sequence<Key, Info> &other)
 {
-    
+    checkTemplateOnOperators();
     head = nullptr;
     tail = nullptr;
     length = other.length;
@@ -116,6 +156,27 @@ Info &Sequence<Key, Info>::operator()(const Key &key, int occurrence) const
     {
         return current->value;
     }
+}
+
+template <typename Key, typename Info>
+bool Sequence<Key, Info>::operator==(const Sequence<Key, Info> &other) const
+{
+    if (length != other.length)
+    {
+        return false;
+    }
+    Node *current = head;
+    Node *otherCurrent = other.head;
+    while (current != nullptr)
+    {
+        if (!(current->key == otherCurrent->key) || !(current->value == otherCurrent->value))
+        {
+            return false;
+        }
+        current = current->next;
+        otherCurrent = otherCurrent->next;
+    }
+    return true;
 }
 
 template <typename Key, typename Info>
