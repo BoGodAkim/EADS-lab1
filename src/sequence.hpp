@@ -28,7 +28,7 @@ public:
     Sequence();
     Sequence(const Sequence<Key, Info> &other);
     ~Sequence();
-    void insert(const Key &key, const Info &value);
+    void insert(const Key &key, const Info &value, bool atEnd = true);
     void insert(const Key &key, const Info &value, const Key &after, int occurrence = 0);
     Info &operator[](const Key &key) const;
     Info &operator()(const Key &key, int occurrence = 0) const;
@@ -52,12 +52,15 @@ public:
         bool operator==(const Iterator &other) const;
         bool operator!=(const Iterator &other) const;
         void operator=(const Iterator &other);
-        pair<Key, Info> &operator*() const;
-        
+        pair<Key, Info> operator*() const;
+        bool isLast() const;
+
+        friend class Sequence;
     };
 
     Iterator begin() const;
     Iterator end() const;
+
 };
 
 #endif // SEQUENCE_HPP

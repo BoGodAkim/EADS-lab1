@@ -54,7 +54,7 @@ Sequence<Key, Info>::Sequence(const Sequence<Key, Info> &other)
     checkTemplateOnOperators();
     head = nullptr;
     tail = nullptr;
-    length = other.length;
+    length = 0;
     Node *current = other.head;
     while (current != nullptr)
     {
@@ -76,9 +76,13 @@ Sequence<Key, Info>::~Sequence()
 }
 
 template <typename Key, typename Info>
-typename std::pair<typename Sequence<Key, Info>::Node *, typename Sequence<Key, Info>::Node *> 
+typename std::pair<typename Sequence<Key, Info>::Node *, typename Sequence<Key, Info>::Node *>
 Sequence<Key, Info>::find(const Key &key, int occurrence) const
 {
+    if (occurrence < 0)
+    {
+        throw "Occurrence must be non-negative";
+    }
     Node *current = head;
     Node *previous = nullptr;
     int count = 0;
@@ -99,17 +103,25 @@ Sequence<Key, Info>::find(const Key &key, int occurrence) const
 }
 
 template <typename Key, typename Info>
-void Sequence<Key, Info>::insert(const Key &key, const Info &value)
+void Sequence<Key, Info>::insert(const Key &key, const Info &value, bool atEnd)
 {
     if (head == nullptr)
     {
         head = new Node(key, value, nullptr);
         tail = head;
+        length++;
+        return;
     }
-    else
+
+    if (atEnd)
     {
         tail->next = new Node(key, value, nullptr);
         tail = tail->next;
+    }
+    else
+    {
+        Node *temp = head;
+        head = new Node(key, value, temp);
     }
     length++;
 }
@@ -127,6 +139,10 @@ void Sequence<Key, Info>::insert(const Key &key, const Info &value, const Key &a
         Node *temp = current->next;
         current->next = new Node(key, value, temp);
         length++;
+        if (temp == nullptr)
+        {
+            tail = current->next;
+        }
     }
 }
 
@@ -272,7 +288,7 @@ Sequence<Key, Info>::Iterator::Iterator(Iterator &other)
 }
 
 template <typename Key, typename Info>
-typename Sequence<Key, Info>::Iterator& Sequence<Key, Info>::Iterator::operator++()
+typename Sequence<Key, Info>::Iterator &Sequence<Key, Info>::Iterator::operator++()
 {
     if (current->next == nullptr)
     {
@@ -286,7 +302,7 @@ typename Sequence<Key, Info>::Iterator& Sequence<Key, Info>::Iterator::operator+
 }
 
 template <typename Key, typename Info>
-typename Sequence<Key, Info>::Iterator& Sequence<Key, Info>::Iterator::operator++(int)
+typename Sequence<Key, Info>::Iterator &Sequence<Key, Info>::Iterator::operator++(int)
 {
     if (current->next == nullptr)
     {
@@ -319,7 +335,13 @@ void Sequence<Key, Info>::Iterator::operator=(const Iterator &other)
 }
 
 template <typename Key, typename Info>
-std::pair<Key, Info> &Sequence<Key, Info>::Iterator::operator*() const
+std::pair<Key, Info> Sequence<Key, Info>::Iterator::operator*() const
 {
     return make_pair(current->key, current->value);
+}
+
+template <typename Key, typename Info>
+bool Sequence<Key, Info>::Iterator::isLast() const
+{
+    return current->next == nullptr;
 }

@@ -1,0 +1,13 @@
+            assert(seq2.size() == 6);
+            assert(seq2.has(1));
+            assert(seq2[1] == 1);
+            assert(seq2.has(2));
+            assert(seq2[2] == 2);
+            assert(seq2.has(3));
+            assert(seq2[3] == 3);
+            assert(seq2.has(4));
+            assert(seq2[4] == 4);
+            assert(seq2.has(5));
+            assert(seq2[5] == 5);
+            assert(seq2.has(6));
+            assert(seq2[6] == 6);

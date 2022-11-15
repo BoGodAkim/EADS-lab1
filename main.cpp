@@ -62,10 +62,10 @@ int main()
             try
             {
                 seq.insert(1, 1);
-                cout << "       Success" << endl;
                 assert(seq.size() == 1);
                 assert(seq.has(1));
                 assert(seq[1] == 1);
+                cout << "       Success" << endl;
             }
             catch (const char *error)
             {
@@ -73,14 +73,29 @@ int main()
             }
 
             cout << endl
-                 << "       Insert in the end" << endl;
+                 << "       Insert at the end" << endl;
             try
             {
                 seq.insert(2, 2);
-                cout << "       Success" << endl;
                 assert(seq.size() == 2);
                 assert(seq.has(2));
                 assert(seq[2] == 2);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Insert at the beginning" << endl;
+            try
+            {
+                seq.insert(3, 3, false);
+                assert(seq.size() == 3);
+                assert(seq.has(3));
+                assert(seq[3] == 3);
+                cout << "       Success" << endl;
             }
             catch (const char *error)
             {
@@ -92,17 +107,306 @@ int main()
             try
             {
                 seq.insert(1, 3);
-                cout << "       Success" << endl;
-                assert(seq.size() == 3);
+                assert(seq.size() == 4);
                 assert(seq.has(1));
                 assert(seq[1] == 1);
                 assert(seq(1, 1) == 3);
+                cout << "       Success" << endl;
             }
             catch (const char *error)
             {
                 cout << "       Failed: " << error << endl;
             }
 
+            cout << endl
+                 << "       Insert after some key" << endl;
+            try
+            {
+                seq.insert(4, 4, 2);
+                assert(seq.size() == 5);
+                assert(seq.has(4));
+                assert(seq[4] == 4);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Insert after non-existing key" << endl;
+            try
+            {
+                seq.insert(4, 4, 5);
+                cout << "       Failed to throw exception" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Success: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Insert after some key with occurrence " << endl;
+            try
+            {
+                seq.insert(5, 5, 1, 1);
+                assert(seq.size() == 6);
+                assert(seq.has(5));
+                assert(seq[5] == 5);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Insert after some key with non-existing occurrence" << endl;
+            try
+            {
+                seq.insert(6, 6, 1, 5);
+                cout << "       Failed to throw exception" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Success: " << error << endl;
+            }
+        }
+        catch (const char *error)
+        {
+            cout << "   Failed: " << error << endl;
+        }
+
+        cout << endl
+             << "   Creating sequence with copy-constructor" << endl;
+        try
+        {
+            Sequence<int, int> seq2(seq);
+            assert(seq2.size() == 6);
+            assert(seq2.has(1));
+            assert(seq2[1] == 1);
+            assert(seq2.has(2));
+            assert(seq2[2] == 2);
+            assert(seq2.has(3));
+            assert(seq2[3] == 3);
+            assert(seq2.has(4));
+            assert(seq2[4] == 4);
+            assert(seq2.has(5));
+            assert(seq2[5] == 5);
+            assert(seq2.occurrences(1) == 2);
+            assert(seq2(1, 1) == 3);
+            cout << "   Success" << endl;
+        }
+        catch (const char *error)
+        {
+            cout << "   Failed: " << error << endl;
+        }
+
+        cout << endl
+             << "   Checking operator[]" << endl;
+        try
+        {
+            cout << endl
+                 << "       Access to existing key" << endl;
+            try
+            {
+                assert(seq[1] == 1);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Access to non-existing key" << endl;
+            try
+            {
+                seq[6];
+                cout << "       Failed to throw exception" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Success: " << error << endl;
+            }
+        }
+        catch (const char *error)
+        {
+            cout << "   Failed: " << error << endl;
+        }
+
+        cout << endl
+             << "   Checking operator()" << endl;
+        try
+        {
+            cout << endl
+                 << "       Access to existing key" << endl;
+            try
+            {
+                assert(seq(1) == 1);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Access to non-existing key" << endl;
+            try
+            {
+                seq(6, 1);
+                cout << "       Failed to throw exception" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Success: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Access to existing key with existing occurrence" << endl;
+            try
+            {
+                assert(seq(1, 1) == 3);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Access to non-existing occurrence" << endl;
+            try
+            {
+                seq(1, 5);
+                cout << "       Failed to throw exception" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Success: " << error << endl;
+            }
+        }
+        catch (const char *error)
+        {
+            cout << "   Failed: " << error << endl;
+        }
+
+        cout << endl
+             << "   Checking operator==" << endl;
+        try
+        {
+            cout << endl
+                 << "       Comparing with same sequence" << endl;
+            try
+            {
+                Sequence<int, int> seq2(seq);
+                assert(seq == seq2);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Comparing with different sequence" << endl;
+            try
+            {
+                Sequence<int, int> seq2;
+                seq2.insert(1, 1);
+                seq2.insert(2, 2);
+                seq2.insert(3, 3);
+                seq2.insert(4, 4);
+                seq2.insert(5, 5);
+                assert(!(seq == seq2));
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+        }
+        catch (const char *error)
+        {
+            cout << "   Failed: " << error << endl;
+        }
+
+        cout << endl
+             << "   Checking occurrences" << endl;
+        try
+        {
+            cout << endl
+                 << "       Occurrences of existing key" << endl;
+            try
+            {
+                assert(seq.occurrences(1) == 2);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Occurrences of non-existing key" << endl;
+            try
+            {
+                assert(seq.occurrences(6) == 0);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+        }
+        catch (const char *error)
+        {
+            cout << "   Failed: " << error << endl;
+        }
+
+        cout << endl
+             << "   Checking has" << endl;
+        try
+        {
+            cout << endl
+                 << "       Has existing key" << endl;
+            try
+            {
+                assert(seq.has(1));
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Has non-existing key" << endl;
+            try
+            {
+                assert(!seq.has(6));
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+        }
+        catch (const char *error)
+        {
+            cout << "   Failed: " << error << endl;
+        }
+
+        cout << endl
+             << "   Checking size" << endl;
+        try
+        {
+
+            assert(seq.size() == 6);
+            seq.insert(0, 0);
+            assert(seq.size() == 7);
+            cout << "       Success" << endl;
         }
         catch (const char *error)
         {
