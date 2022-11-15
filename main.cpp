@@ -412,6 +412,95 @@ int main()
         {
             cout << "   Failed: " << error << endl;
         }
+
+        cout << endl
+             << "   Checking remove" << endl;
+        try
+        {
+            cout << endl
+                 << "       Remove existing key" << endl;
+            try
+            {
+                seq.remove(2);
+                assert(seq.size() == 6);
+                assert(!seq.has(2));
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Remove non-existing key" << endl;
+            try
+            {
+                seq.remove(6);
+                cout << "       Failed to throw exception" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Success: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Remove existing key with existing occurrence" << endl;
+            try
+            {
+                seq.remove(1, 1);
+                assert(seq.size() == 5);
+                assert(seq.occurrences(1) == 1);
+                assert(seq[1] == 1);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Remove existing key with non-existing occurrence" << endl;
+            try
+            {
+                seq.remove(1, 5);
+                cout << "       Failed to throw exception" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Success: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Remove first element" << endl;
+            try
+            {
+                seq.remove(1);
+                assert(seq.size() == 4);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Remove last element" << endl;
+            try
+            {
+                seq.remove(0);
+                assert(seq.size() == 3);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+        }
+        catch (const char *error)
+        {
+            cout << "   Failed: " << error << endl;
+        }
+
     }
     catch (const exception &e)
     {
