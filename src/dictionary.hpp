@@ -22,8 +22,27 @@ public:
     void clear();
     bool has(const Key &key) const;
     int size() const;
-    typename Sequence<Key, Info>::Iterator begin() const;
-    typename Sequence<Key, Info>::Iterator end() const;
+
+    class Iterator
+    {
+    private:
+        typename Sequence<Key, Info>::Iterator current;
+    
+        Iterator(typename Sequence<Key, Info>::Iterator current);
+    public:
+        Iterator();
+        Iterator(Iterator &other);
+        Iterator &operator++();
+        Iterator operator++(int);
+        bool operator==(const Iterator &other) const;
+        bool operator!=(const Iterator &other) const;
+        void operator=(const Iterator &other);
+        pair<Key, Info> operator*() const;
+
+        friend class Dictionary;
+    };
+    Iterator begin() const;
+    Iterator end() const;
 
 };
 

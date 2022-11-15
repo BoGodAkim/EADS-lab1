@@ -501,6 +501,556 @@ int main()
             cout << "   Failed: " << error << endl;
         }
 
+        cout << endl
+             << "   Checking Iterator" << endl;
+        try
+        {
+            cout << endl
+                 << "       Iterator constructor" << endl;
+            try
+            {
+                seq.begin();
+                seq.end();
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Iterator copy constructor" << endl;
+            try
+            {
+                auto it = seq.begin();
+                Sequence<int, int>::Iterator it2(it);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Iterator assignment operator" << endl;
+            try
+            {
+                auto it = seq.begin();
+                Sequence<int, int>::Iterator it2;
+                it2 = it;
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Iterator prefix operator++" << endl;
+            try
+            {
+                auto it = seq.begin();
+                assert((*it).first == 3);
+                assert((*it).second == 3);
+                ++it;
+                assert((*it).first == 4);
+                assert((*it).second == 4);
+                ++it;
+                assert((*it).first == 5);
+                assert((*it).second == 5);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Iterator postfix operator++" << endl;
+            try
+            {
+                auto it = seq.begin();
+                assert((*it).first == 3);
+                assert((*it).second == 3);
+                it++;
+                assert((*it).first == 4);
+                assert((*it).second == 4);
+                it++;
+                assert((*it).first == 5);
+                assert((*it).second == 5);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Iterator operator==" << endl;
+            try
+            {
+                auto it = seq.begin();
+                auto it2 = seq.begin();
+                assert(it == it2);
+                ++it;
+                assert(!(it == it2));
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Iterator operator!=" << endl;
+            try
+            {
+                auto it = seq.begin();
+                auto it2 = seq.begin();
+                assert(!(it != it2));
+                ++it;
+                assert(it != it2);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Iterator operator*" << endl;
+            try
+            {
+                auto it = seq.begin();
+                assert((*it).first == 3);
+                assert((*it).second == 3);
+                ++it;
+                assert((*it).first == 4);
+                assert((*it).second == 4);
+                ++it;
+                assert((*it).first == 5);
+                assert((*it).second == 5);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+        }
+        catch (const char *error)
+        {
+            cout << "   Failed: " << error << endl;
+        }
+    }
+    catch (const exception &e)
+    {
+        cout << "Error: " << e.what() << endl;
+    }
+
+    cout << endl
+         << "Testing dictionary" << endl;
+    try
+    {
+        Dictionary<int, int> dict;
+
+        cout << endl
+             << "   Checking constructor" << endl;
+        try
+        {
+            cout << endl
+                 << "       Default constructor" << endl;
+            try
+            {
+                Dictionary<int, int> dict2;
+                assert(dict2.size() == 0);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Copy constructor" << endl;
+            try
+            {
+
+                Dictionary<int, int> dict2;
+                dict2.insert(3, 3);
+                dict2.insert(4, 4);
+                dict2.insert(5, 5);
+                Dictionary<int, int> dict3(dict2);
+                assert(dict3.size() == 3);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+        }
+        catch (const char *error)
+        {
+            cout << "   Failed: " << error << endl;
+        }
+
+        cout << endl
+             << "   Checking insert" << endl;
+        try
+        {
+            cout << endl
+                 << "       Insert with unique key" << endl;
+            try
+            {
+                dict.insert(3, 3);
+                dict.insert(4, 4);
+                dict.insert(5, 5);
+                assert(dict.size() == 3);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Insert with duplicate key" << endl;
+            try
+            {
+                dict.insert(3, 3);
+                cout << "       Failed" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Success: " << error << endl;
+            }
+        }
+        catch (const char *error)
+        {
+            cout << "   Failed: " << error << endl;
+        }
+
+        cout << endl
+             << "   Checking operator[]" << endl;
+        try
+        {
+            cout << endl
+                 << "       Get Info with key which already exist" << endl;
+            try
+            {
+                assert(dict[3] == 3);
+                assert(dict[4] == 4);
+                assert(dict[5] == 5);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Insert with key which does not exist" << endl;
+            try
+            {
+                dict[6] = 6;
+                assert(dict[6] == 6);
+                assert(dict[7] == 0);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+        }
+        catch (const char *error)
+        {
+            cout << "   Failed: " << error << endl;
+        }
+
+        cout << endl
+             << "   Checking size" << endl;
+        try
+        {
+            cout << endl
+                 << "       Size of empty dictionary" << endl;
+            try
+            {
+                Dictionary<int, int> dict2;
+                assert(dict2.size() == 0);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Size of dictionary with 1 element" << endl;
+            try
+            {
+                assert(dict.size() == 5);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+        }
+        catch (const char *error)
+        {
+            cout << "   Failed: " << error << endl;
+        }
+
+        cout << endl
+             << "   Checking operator=" << endl;
+        try
+        {
+
+            Dictionary<int, int> dict2;
+            dict2 = dict;
+            assert(dict2[3] == 3);
+            assert(dict2[4] == 4);
+            assert(dict2[5] == 5);
+            assert(dict2[6] == 6);
+            assert(dict2[7] == 0);
+            assert(dict2.size() == 5);
+            cout << "       Success" << endl;
+        }
+        catch (const char *error)
+        {
+            cout << "   Failed: " << error << endl;
+        }
+
+        cout << endl
+             << "   Checking remove" << endl;
+        try
+        {
+            cout << endl
+                 << "       Remove with key which does not exist" << endl;
+            try
+            {
+                dict.remove(8);
+                cout << "       Failed" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Success: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Remove with key which exist" << endl;
+            try
+            {
+                dict.remove(3);
+                assert(dict.size() == 4);
+                assert(!dict.has(3));
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+        }
+        catch (const char *error)
+        {
+            cout << "   Failed: " << error << endl;
+        }
+
+        cout << endl
+             << "   Checking has" << endl;
+        try
+        {
+            cout << endl
+                 << "       Has with key which does not exist" << endl;
+            try
+            {
+                assert(!dict.has(8));
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Has with key which exist" << endl;
+            try
+            {
+                assert(dict.has(4));
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+        }
+        catch (const char *error)
+        {
+            cout << "   Failed: " << error << endl;
+        }
+
+        cout << endl
+             << "   Checking Iterator" << endl;
+        try
+        {
+            cout << endl
+                 << "       Iterator constructor" << endl;
+            try
+            {
+                dict.begin();
+                dict.end();
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Iterator copy constructor" << endl;
+            try
+            {
+                auto it = dict.begin();
+                Dictionary<int, int>::Iterator it2(it);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Iterator assignment operator" << endl;
+            try
+            {
+                auto it = dict.begin();
+                Dictionary<int, int>::Iterator it2;
+                it2 = it;
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Iterator prefix operator++" << endl;
+            try
+            {
+                auto it = dict.begin();
+                assert((*it).first == 4);
+                assert((*it).second == 4);
+                ++it;
+                assert((*it).first == 5);
+                assert((*it).second == 5);
+                ++it;
+                assert((*it).first == 6);
+                assert((*it).second == 6);
+                ++it;
+                assert((*it).first == 7);
+                assert((*it).second == 0);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Iterator postfix operator++" << endl;
+            try
+            {
+                auto it = dict.begin();
+                assert((*it).first == 4);
+                assert((*it).second == 4);
+                it++;
+                assert((*it).first == 5);
+                assert((*it).second == 5);
+                it++;
+                assert((*it).first == 6);
+                assert((*it).second == 6);
+                it++;
+                assert((*it).first == 7);
+                assert((*it).second == 0);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Iterator operator==" << endl;
+            try
+            {
+                auto it = dict.begin();
+                auto it2 = dict.begin();
+                assert(it == it2);
+                ++it;
+                assert(!(it == it2));
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Iterator operator!=" << endl;
+            try
+            {
+                auto it = dict.begin();
+                auto it2 = dict.begin();
+                assert(!(it != it2));
+                ++it;
+                assert(it != it2);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+
+            cout << endl
+                 << "       Iterator operator*" << endl;
+            try
+            {
+                auto it = dict.begin();
+                assert((*it).first == 4);
+                assert((*it).second == 4);
+                it++;
+                assert((*it).first == 5);
+                assert((*it).second == 5);
+                it++;
+                assert((*it).first == 6);
+                assert((*it).second == 6);
+                it++;
+                assert((*it).first == 7);
+                assert((*it).second == 0);
+                cout << "       Success" << endl;
+            }
+            catch (const char *error)
+            {
+                cout << "       Failed: " << error << endl;
+            }
+        }
+        catch (const char *error)
+        {
+            cout << "   Failed: " << error << endl;
+        }
+
+        cout << endl
+             << "   Checking clear" << endl;
+        try
+        {
+            dict.clear();
+            assert(dict.size() == 0);
+            assert(dict.begin() == dict.end());
+            cout << "   Success" << endl;
+        }
+        catch (const char *error)
+        {
+            cout << "   Failed: " << error << endl;
+        }
     }
     catch (const exception &e)
     {

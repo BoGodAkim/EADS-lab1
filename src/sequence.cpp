@@ -272,13 +272,19 @@ typename Sequence<Key, Info>::Iterator Sequence<Key, Info>::begin() const
 template <typename Key, typename Info>
 typename Sequence<Key, Info>::Iterator Sequence<Key, Info>::end() const
 {
-    return Iterator(tail);
+    return Iterator(nullptr);
 }
 
 template <typename Key, typename Info>
 Sequence<Key, Info>::Iterator::Iterator(Node *node)
 {
     current = node;
+}
+
+template <typename Key, typename Info>
+Sequence<Key, Info>::Iterator::Iterator()
+{
+    current = nullptr;
 }
 
 template <typename Key, typename Info>
@@ -290,30 +296,22 @@ Sequence<Key, Info>::Iterator::Iterator(Iterator &other)
 template <typename Key, typename Info>
 typename Sequence<Key, Info>::Iterator &Sequence<Key, Info>::Iterator::operator++()
 {
-    if (current->next == nullptr)
-    {
-        throw "End of sequence";
-    }
-    else
+    if (current != nullptr)
     {
         current = current->next;
-        return *this;
     }
+    return *this;
 }
 
 template <typename Key, typename Info>
-typename Sequence<Key, Info>::Iterator &Sequence<Key, Info>::Iterator::operator++(int)
+typename Sequence<Key, Info>::Iterator Sequence<Key, Info>::Iterator::operator++(int)
 {
-    if (current->next == nullptr)
+    Iterator temp = *this;
+    if (current != nullptr)
     {
-        throw "End of sequence";
-    }
-    else
-    {
-        Iterator *temp = new Iterator(*this);
         current = current->next;
-        return *temp;
     }
+    return temp;
 }
 
 template <typename Key, typename Info>
@@ -337,11 +335,12 @@ void Sequence<Key, Info>::Iterator::operator=(const Iterator &other)
 template <typename Key, typename Info>
 std::pair<Key, Info> Sequence<Key, Info>::Iterator::operator*() const
 {
-    return make_pair(current->key, current->value);
-}
-
-template <typename Key, typename Info>
-bool Sequence<Key, Info>::Iterator::isLast() const
-{
-    return current->next == nullptr;
+    if (current == nullptr)
+    {
+        return std::pair<Key, Info>();
+    }
+    else
+    {
+        return make_pair(current->key, current->value);
+    }
 }

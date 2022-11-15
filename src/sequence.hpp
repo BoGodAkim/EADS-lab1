@@ -46,14 +46,14 @@ public:
         Iterator(Node *current);
 
     public:
+        Iterator();
         Iterator(Iterator &other);
         Iterator &operator++();
-        Iterator &operator++(int);
+        Iterator operator++(int);
         bool operator==(const Iterator &other) const;
         bool operator!=(const Iterator &other) const;
         void operator=(const Iterator &other);
         pair<Key, Info> operator*() const;
-        bool isLast() const;
 
         friend class Sequence;
     };
