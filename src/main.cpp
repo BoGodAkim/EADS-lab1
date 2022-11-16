@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
-#include "src/dictionary.hpp"
-#include "src/sequence.hpp"
+#include "dictionary.hpp"
+#include "sequence.hpp"
 
-// #include "src/dictionary.cpp"
-// #include "src/sequence.cpp"
+#include "dictionary.cpp"
+#include "sequence.cpp"
 using namespace std;
 
 class IncorrectClass
