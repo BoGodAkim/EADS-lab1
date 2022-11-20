@@ -24,7 +24,7 @@ void Dictionary<Key, Info>::insert(const Key &key, const Info &value)
 {
     if (sequence.has(key))
     {
-        throw "Key already exists";
+        throw logic_error("Key already exists");
     }
     sequence.push_back(key, value);
 }
@@ -116,12 +116,6 @@ template <typename Key, typename Info>
 bool Dictionary<Key, Info>::Iterator::operator!=(const Iterator &other) const
 {
     return current != other.current;
-}
-
-template <typename Key, typename Info>
-void Dictionary<Key, Info>::Iterator::operator=(const Iterator &other)
-{
-    current = other.current;
 }
 
 template <typename Key, typename Info>

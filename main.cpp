@@ -22,9 +22,9 @@ int main()
             Sequence<IncorrectClass, int> seq;
             cout << "   Failed to throw exception" << endl;
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Success: " << error << endl;
+            cout << "   Success: " << e.what() << endl;
         }
 
         cout << endl
@@ -34,9 +34,9 @@ int main()
             Sequence<int, IncorrectClass> seq;
             cout << "   Failed to throw exception" << endl;
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Success: " << error << endl;
+            cout << "   Success: " << e.what() << endl;
         }
 
         cout << endl
@@ -47,9 +47,9 @@ int main()
             Sequence<int, int> seq;
             cout << "   Success" << endl;
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
 
         Sequence<int, int> seq;
@@ -68,9 +68,9 @@ int main()
                 assert(seq[1] == 1);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -83,9 +83,9 @@ int main()
                 assert(seq[2] == 2);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -98,9 +98,9 @@ int main()
                 assert(seq[3] == 3);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -114,9 +114,9 @@ int main()
                 assert(seq(1, 1) == 3);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -129,9 +129,9 @@ int main()
                 assert(seq[4] == 4);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -141,9 +141,9 @@ int main()
                 seq.insert(4, 4, 5);
                 cout << "       Failed to throw exception" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Success: " << error << endl;
+                cout << "       Success: " << e.what() << endl;
             }
 
             cout << endl
@@ -156,9 +156,9 @@ int main()
                 assert(seq[5] == 5);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -168,14 +168,14 @@ int main()
                 seq.insert(6, 6, 1, 5);
                 cout << "       Failed to throw exception" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Success: " << error << endl;
+                cout << "       Success: " << e.what() << endl;
             }
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
 
         cout << endl
@@ -198,9 +198,9 @@ int main()
             assert(seq2(1, 1) == 3);
             cout << "   Success" << endl;
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
 
         cout << endl
@@ -214,9 +214,9 @@ int main()
                 assert(seq[1] == 1);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -226,14 +226,14 @@ int main()
                 seq[6];
                 cout << "       Failed to throw exception" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Success: " << error << endl;
+                cout << "       Success: " << e.what() << endl;
             }
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
 
         cout << endl
@@ -247,9 +247,9 @@ int main()
                 assert(seq(1) == 1);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -259,9 +259,9 @@ int main()
                 seq(6, 1);
                 cout << "       Failed to throw exception" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Success: " << error << endl;
+                cout << "       Success: " << e.what() << endl;
             }
 
             cout << endl
@@ -271,9 +271,9 @@ int main()
                 assert(seq(1, 1) == 3);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -283,14 +283,14 @@ int main()
                 seq(1, 5);
                 cout << "       Failed to throw exception" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Success: " << error << endl;
+                cout << "       Success: " << e.what() << endl;
             }
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
 
         cout << endl
@@ -305,9 +305,9 @@ int main()
                 assert(seq == seq2);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -323,14 +323,14 @@ int main()
                 assert(!(seq == seq2));
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
 
         cout << endl
@@ -344,9 +344,9 @@ int main()
                 assert(seq.occurrences(1) == 2);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -356,14 +356,14 @@ int main()
                 assert(seq.occurrences(6) == 0);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
 
         cout << endl
@@ -377,9 +377,9 @@ int main()
                 assert(seq.has(1));
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -389,14 +389,14 @@ int main()
                 assert(!seq.has(6));
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
 
         cout << endl
@@ -409,9 +409,9 @@ int main()
             assert(seq.size() == 7);
             cout << "       Success" << endl;
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
 
         cout << endl
@@ -427,9 +427,9 @@ int main()
                 assert(!seq.has(2));
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -439,9 +439,9 @@ int main()
                 seq.remove(6);
                 cout << "       Failed to throw exception" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Success: " << error << endl;
+                cout << "       Success: " << e.what() << endl;
             }
 
             cout << endl
@@ -454,9 +454,9 @@ int main()
                 assert(seq[1] == 1);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -466,9 +466,9 @@ int main()
                 seq.remove(1, 5);
                 cout << "       Failed to throw exception" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Success: " << error << endl;
+                cout << "       Success: " << e.what() << endl;
             }
 
             cout << endl
@@ -479,9 +479,9 @@ int main()
                 assert(seq.size() == 4);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -492,14 +492,14 @@ int main()
                 assert(seq.size() == 3);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
 
         cout << endl
@@ -514,9 +514,9 @@ int main()
                 seq.end();
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -527,9 +527,9 @@ int main()
                 Sequence<int, int>::Iterator it2(it);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -541,9 +541,9 @@ int main()
                 it2 = it;
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -561,9 +561,9 @@ int main()
                 assert((*it).second == 5);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -581,9 +581,9 @@ int main()
                 assert((*it).second == 5);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -597,9 +597,9 @@ int main()
                 assert(!(it == it2));
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -613,9 +613,9 @@ int main()
                 assert(it != it2);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -633,14 +633,14 @@ int main()
                 assert((*it).second == 5);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
     }
     catch (const exception &e)
@@ -666,9 +666,9 @@ int main()
                 assert(dict2.size() == 0);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -678,9 +678,9 @@ int main()
                 Dictionary<IncorrectClass, int> dict2;
                 cout << "       Failed" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Success: " << error << endl;
+                cout << "       Success: " << e.what() << endl;
             }
 
             cout << endl
@@ -690,9 +690,9 @@ int main()
                 Dictionary<int, IncorrectClass> dict2;
                 cout << "       Failed" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Success: " << error << endl;
+                cout << "       Success: " << e.what() << endl;
             }
 
             cout << endl
@@ -708,14 +708,14 @@ int main()
                 assert(dict3.size() == 3);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
 
         cout << endl
@@ -732,9 +732,9 @@ int main()
                 assert(dict.size() == 3);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -744,14 +744,14 @@ int main()
                 dict.insert(3, 3);
                 cout << "       Failed" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Success: " << error << endl;
+                cout << "       Success: " << e.what() << endl;
             }
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
 
         cout << endl
@@ -767,9 +767,9 @@ int main()
                 assert(dict[5] == 5);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -781,14 +781,14 @@ int main()
                 assert(dict[7] == 0);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
 
         cout << endl
@@ -803,9 +803,9 @@ int main()
                 assert(dict2.size() == 0);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -815,14 +815,14 @@ int main()
                 assert(dict.size() == 5);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
 
         cout << endl
@@ -840,9 +840,9 @@ int main()
             assert(dict2.size() == 5);
             cout << "       Success" << endl;
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
 
         cout << endl
@@ -856,9 +856,9 @@ int main()
                 dict.remove(8);
                 cout << "       Failed" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Success: " << error << endl;
+                cout << "       Success: " << e.what() << endl;
             }
 
             cout << endl
@@ -870,14 +870,14 @@ int main()
                 assert(!dict.has(3));
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
 
         cout << endl
@@ -891,9 +891,9 @@ int main()
                 assert(!dict.has(8));
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -903,14 +903,14 @@ int main()
                 assert(dict.has(4));
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
 
         cout << endl
@@ -925,9 +925,9 @@ int main()
                 dict.end();
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -938,9 +938,9 @@ int main()
                 Dictionary<int, int>::Iterator it2(it);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -952,9 +952,9 @@ int main()
                 it2 = it;
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -975,9 +975,9 @@ int main()
                 assert((*it).second == 0);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -998,9 +998,9 @@ int main()
                 assert((*it).second == 0);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -1014,9 +1014,9 @@ int main()
                 assert(!(it == it2));
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -1030,9 +1030,9 @@ int main()
                 assert(it != it2);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
 
             cout << endl
@@ -1053,14 +1053,14 @@ int main()
                 assert((*it).second == 0);
                 cout << "       Success" << endl;
             }
-            catch (const char *error)
+            catch (const exception &e)
             {
-                cout << "       Failed: " << error << endl;
+                cout << "       Failed: " << e.what() << endl;
             }
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
 
         cout << endl
@@ -1072,9 +1072,9 @@ int main()
             assert(dict.begin() == dict.end());
             cout << "   Success" << endl;
         }
-        catch (const char *error)
+        catch (const exception &e)
         {
-            cout << "   Failed: " << error << endl;
+            cout << "   Failed: " << e.what() << endl;
         }
     }
     catch (const exception &e)

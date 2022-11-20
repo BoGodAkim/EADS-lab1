@@ -33,11 +33,11 @@ void Sequence<Key, Info>::checkTemplateOnOperators() const
 {
     if (!CHECK::EqualExists<Key, Key>::value)
     {
-        throw "Key does not have operator==";
+        throw logic_error("Key type does not support operator==");
     }
     if (!CHECK::EqualExists<Info, Info>::value)
     {
-        throw "Info does not have operator==";
+        throw logic_error("Info type does not support operator==");
     }
 }
 
@@ -83,7 +83,7 @@ Sequence<Key, Info>::find(const Key &key, unsigned int occurrence) const
 {
     if (occurrence < 0)
     {
-        throw "Occurrence must be non-negative";
+        throw invalid_argument("Occurrence must be non-negative");
     }
     Node *current = head;
     Node *previous = nullptr;
@@ -143,7 +143,7 @@ void Sequence<Key, Info>::insert(const Key &key, const Info &value, const Key &a
     Node *current = find(after, occurrence).second;
     if (current == nullptr)
     {
-        throw "Key not found";
+        throw invalid_argument("Key not found");
     }
     else
     {
@@ -163,7 +163,7 @@ const Info &Sequence<Key, Info>::operator[](const Key &key) const
     Node *current = find(key).second;
     if (current == nullptr)
     {
-        throw "Key not found";
+        throw invalid_argument("Key not found");
     }
     else
     {
@@ -177,7 +177,7 @@ Info &Sequence<Key, Info>::operator[](const Key &key)
     Node *current = find(key).second;
     if (current == nullptr)
     {
-        throw "Key not found";
+        throw invalid_argument("Key not found");
     }
     else
     {
@@ -191,7 +191,7 @@ const Info &Sequence<Key, Info>::operator()(const Key &key, unsigned int occurre
     Node *current = find(key, occurrence).second;
     if (current == nullptr)
     {
-        throw "Key not found";
+        throw invalid_argument("Key not found");
     }
     else
     {
@@ -205,7 +205,7 @@ Info &Sequence<Key, Info>::operator()(const Key &key, unsigned int occurrence)
     Node *current = find(key, occurrence).second;
     if (current == nullptr)
     {
-        throw "Key not found";
+        throw invalid_argument("Key not found");
     }
     else
     {
@@ -265,7 +265,7 @@ void Sequence<Key, Info>::remove(const Key &key, unsigned int occurrence)
 
     if (current == nullptr)
     {
-        throw "Key not found";
+        throw invalid_argument("Key not found");
     }
     else
     {
@@ -370,12 +370,6 @@ template <typename Key, typename Info>
 bool Sequence<Key, Info>::Iterator::operator!=(const Iterator &other) const
 {
     return current != other.current;
-}
-
-template <typename Key, typename Info>
-void Sequence<Key, Info>::Iterator::operator=(const Iterator &other)
-{
-    current = other.current;
 }
 
 template <typename Key, typename Info>

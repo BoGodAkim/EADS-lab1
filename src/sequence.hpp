@@ -50,7 +50,6 @@ public:
         Iterator operator++(int);
         bool operator==(const Iterator &other) const;
         bool operator!=(const Iterator &other) const;
-        void operator=(const Iterator &other);
         std::pair<const Key &, const Info &> operator*() const;
         std::pair<const Key &, Info &> operator*();
 
