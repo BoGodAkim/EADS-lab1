@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+#include <iostream>
 #include "dictionary.hpp"
 #include "sequence.hpp"
 
@@ -54,6 +54,7 @@ int main()
 
         Sequence<int, int> seq;
 
+        //TODO: rewrite insert to push_back and push_front
         cout << endl
              << "   Checking insert" << endl;
         try
@@ -62,7 +63,7 @@ int main()
                  << "       Insert in empty sequence" << endl;
             try
             {
-                seq.insert(1, 1);
+                seq.push_back(1, 1);
                 assert(seq.size() == 1);
                 assert(seq.has(1));
                 assert(seq[1] == 1);
@@ -77,7 +78,7 @@ int main()
                  << "       Insert at the end" << endl;
             try
             {
-                seq.insert(2, 2);
+                seq.push_back(2, 2);
                 assert(seq.size() == 2);
                 assert(seq.has(2));
                 assert(seq[2] == 2);
@@ -92,7 +93,7 @@ int main()
                  << "       Insert at the beginning" << endl;
             try
             {
-                seq.insert(3, 3, false);
+                seq.push_front(3, 3);
                 assert(seq.size() == 3);
                 assert(seq.has(3));
                 assert(seq[3] == 3);
@@ -107,7 +108,7 @@ int main()
                  << "       Insert with  non-unique key" << endl;
             try
             {
-                seq.insert(1, 3);
+                seq.push_back(1, 3);
                 assert(seq.size() == 4);
                 assert(seq.has(1));
                 assert(seq[1] == 1);
@@ -315,11 +316,11 @@ int main()
             try
             {
                 Sequence<int, int> seq2;
-                seq2.insert(1, 1);
-                seq2.insert(2, 2);
-                seq2.insert(3, 3);
-                seq2.insert(4, 4);
-                seq2.insert(5, 5);
+                seq2.push_back(1, 1);
+                seq2.push_back(2, 2);
+                seq2.push_back(3, 3);
+                seq2.push_back(4, 4);
+                seq2.push_back(5, 5);
                 assert(!(seq == seq2));
                 cout << "       Success" << endl;
             }
@@ -405,7 +406,7 @@ int main()
         {
 
             assert(seq.size() == 6);
-            seq.insert(0, 0);
+            seq.push_back(0, 0);
             assert(seq.size() == 7);
             cout << "       Success" << endl;
         }

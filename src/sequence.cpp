@@ -1,5 +1,7 @@
 #include "sequence.hpp"
 
+using namespace std;
+
 namespace CHECK
 {
     struct No
@@ -58,7 +60,7 @@ Sequence<Key, Info>::Sequence(const Sequence<Key, Info> &other)
     Node *current = other.head;
     while (current != nullptr)
     {
-        insert(current->key, current->value);
+        push_back(current->key, current->value);
         current = current->next;
     }
 }
@@ -77,7 +79,7 @@ Sequence<Key, Info>::~Sequence()
 
 template <typename Key, typename Info>
 typename std::pair<typename Sequence<Key, Info>::Node *, typename Sequence<Key, Info>::Node *>
-Sequence<Key, Info>::find(const Key &key, int occurrence) const
+Sequence<Key, Info>::find(const Key &key, unsigned int occurrence) const
 {
     if (occurrence < 0)
     {
@@ -85,7 +87,7 @@ Sequence<Key, Info>::find(const Key &key, int occurrence) const
     }
     Node *current = head;
     Node *previous = nullptr;
-    int count = 0;
+    unsigned int count = 0;
     while (current != nullptr)
     {
         if (current->key == key)
@@ -103,31 +105,40 @@ Sequence<Key, Info>::find(const Key &key, int occurrence) const
 }
 
 template <typename Key, typename Info>
-void Sequence<Key, Info>::insert(const Key &key, const Info &value, bool atEnd)
+void Sequence<Key, Info>::push_back(const Key &key, const Info &value)
 {
+    Node *newNode = new Node(key, value, nullptr);
     if (head == nullptr)
     {
-        head = new Node(key, value, nullptr);
-        tail = head;
-        length++;
-        return;
-    }
-
-    if (atEnd)
-    {
-        tail->next = new Node(key, value, nullptr);
-        tail = tail->next;
+        head = newNode;
+        tail = newNode;
     }
     else
     {
-        Node *temp = head;
-        head = new Node(key, value, temp);
+        tail->next = newNode;
+        tail = newNode;
     }
     length++;
 }
 
 template <typename Key, typename Info>
-void Sequence<Key, Info>::insert(const Key &key, const Info &value, const Key &after, int occurrence)
+void Sequence<Key, Info>::push_front(const Key &key, const Info &value)
+{
+    Node *newNode = new Node(key, value, head);
+    if (head == nullptr)
+    {
+        head = newNode;
+        tail = newNode;
+    }
+    else
+    {
+        head = newNode;
+    }
+    length++;
+}
+
+template <typename Key, typename Info>
+void Sequence<Key, Info>::insert(const Key &key, const Info &value, const Key &after, unsigned int occurrence)
 {
     Node *current = find(after, occurrence).second;
     if (current == nullptr)
@@ -147,7 +158,7 @@ void Sequence<Key, Info>::insert(const Key &key, const Info &value, const Key &a
 }
 
 template <typename Key, typename Info>
-Info &Sequence<Key, Info>::operator[](const Key &key) const
+const Info &Sequence<Key, Info>::operator[](const Key &key) const
 {
     Node *current = find(key).second;
     if (current == nullptr)
@@ -161,7 +172,21 @@ Info &Sequence<Key, Info>::operator[](const Key &key) const
 }
 
 template <typename Key, typename Info>
-Info &Sequence<Key, Info>::operator()(const Key &key, int occurrence) const
+Info &Sequence<Key, Info>::operator[](const Key &key)
+{
+    Node *current = find(key).second;
+    if (current == nullptr)
+    {
+        throw "Key not found";
+    }
+    else
+    {
+        return current->value;
+    }
+}
+
+template <typename Key, typename Info>
+const Info &Sequence<Key, Info>::operator()(const Key &key, unsigned int occurrence) const
 {
     Node *current = find(key, occurrence).second;
     if (current == nullptr)
@@ -172,6 +197,42 @@ Info &Sequence<Key, Info>::operator()(const Key &key, int occurrence) const
     {
         return current->value;
     }
+}
+
+template <typename Key, typename Info>
+Info &Sequence<Key, Info>::operator()(const Key &key, unsigned int occurrence)
+{
+    Node *current = find(key, occurrence).second;
+    if (current == nullptr)
+    {
+        throw "Key not found";
+    }
+    else
+    {
+        return current->value;
+    }
+}
+
+template <typename Key, typename Info>
+Sequence<Key, Info> &Sequence<Key, Info>::operator=(const Sequence<Key, Info> &other)
+{
+    Node *current = head;
+    while (current != nullptr)
+    {
+        Node *temp = current;
+        current = current->next;
+        delete temp;
+    }
+    head = nullptr;
+    tail = nullptr;
+    length = 0;
+    current = other.head;
+    while (current != nullptr)
+    {
+        push_back(current->key, current->value);
+        current = current->next;
+    }
+    return *this;
 }
 
 template <typename Key, typename Info>
@@ -196,7 +257,7 @@ bool Sequence<Key, Info>::operator==(const Sequence<Key, Info> &other) const
 }
 
 template <typename Key, typename Info>
-void Sequence<Key, Info>::remove(const Key &key, int occurrence)
+void Sequence<Key, Info>::remove(const Key &key, unsigned int occurrence)
 {
     pair<Node *, Node *> result = find(key, occurrence);
     Node *previous = result.first;
@@ -227,10 +288,10 @@ void Sequence<Key, Info>::remove(const Key &key, int occurrence)
 }
 
 template <typename Key, typename Info>
-int Sequence<Key, Info>::occurrences(const Key &key) const
+unsigned int Sequence<Key, Info>::occurrences(const Key &key) const
 {
     Node *current = head;
-    int count = 0;
+    unsigned int count = 0;
     while (current != nullptr)
     {
         if (current->key == key)
@@ -245,20 +306,11 @@ int Sequence<Key, Info>::occurrences(const Key &key) const
 template <typename Key, typename Info>
 bool Sequence<Key, Info>::has(const Key &key) const
 {
-    Node *current = head;
-    while (current != nullptr)
-    {
-        if (current->key == key)
-        {
-            return true;
-        }
-        current = current->next;
-    }
-    return false;
+    return find(key).second != nullptr;
 }
 
 template <typename Key, typename Info>
-int Sequence<Key, Info>::size() const
+unsigned int Sequence<Key, Info>::size() const
 {
     return length;
 }
@@ -285,12 +337,6 @@ template <typename Key, typename Info>
 Sequence<Key, Info>::Iterator::Iterator()
 {
     current = nullptr;
-}
-
-template <typename Key, typename Info>
-Sequence<Key, Info>::Iterator::Iterator(Iterator &other)
-{
-    current = other.current;
 }
 
 template <typename Key, typename Info>
@@ -333,14 +379,29 @@ void Sequence<Key, Info>::Iterator::operator=(const Iterator &other)
 }
 
 template <typename Key, typename Info>
-std::pair<Key, Info> Sequence<Key, Info>::Iterator::operator*() const
+pair<const Key &, const Info &> Sequence<Key, Info>::Iterator::operator*() const
 {
     if (current == nullptr)
     {
-        return std::pair<Key, Info>();
+        return pair<const Key &, const Info &>();
     }
     else
     {
-        return make_pair(current->key, current->value);
+        return pair<const Key &, Info &>(current->key, current->value);
+    }
+}
+
+template <typename Key, typename Info>
+pair<const Key &, Info &> Sequence<Key, Info>::Iterator::operator*()
+{
+    if (current == nullptr)
+    {
+        Key key;
+        Info info;
+        return pair<const Key &, Info &>(key, info);
+    }
+    else
+    {
+        return pair<const Key &, Info &>(current->key, current->value);
     }
 }
